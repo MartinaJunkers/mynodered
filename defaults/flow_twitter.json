@@ -1,0 +1,354 @@
+[
+    {
+        "id": "d48c062b.f799e",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "5fb289e7.248f08",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MartinaJnkrs"
+    },
+    {
+        "id": "32649b6b.46b03c",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MartinaJnkrs"
+    },
+    {
+        "id": "174730df.1a94bf",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MartinaJnkrs"
+    },
+    {
+        "id": "37c7065e.21e5ca",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": ""
+    },
+    {
+        "id": "c79edaca.cc8178",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@Junkers_IBM"
+    },
+    {
+        "id": "a696042c.91eec",
+        "type": "switch",
+        "z": "d48c062b.f799e",
+        "name": "English",
+        "property": "lang",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "en",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 398.5,
+        "y": 164,
+        "wires": [
+            [
+                "92dab0d0.5260d8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "92dab0d0.5260d8",
+        "type": "switch",
+        "z": "d48c062b.f799e",
+        "name": "Bad Language Filter",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "fuck",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "shit",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "crap",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "arsehole",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "shite",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 6,
+        "x": 653.5,
+        "y": 157,
+        "wires": [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [
+                "5c96421c.3d88f4"
+            ]
+        ]
+    },
+    {
+        "id": "5c96421c.3d88f4",
+        "type": "sentiment",
+        "z": "d48c062b.f799e",
+        "name": "positive sentiment",
+        "x": 1028.5,
+        "y": 81,
+        "wires": [
+            [
+                "b273a1ff.987d3"
+            ]
+        ]
+    },
+    {
+        "id": "ac7b6eac.ff7f08",
+        "type": "debug",
+        "z": "d48c062b.f799e",
+        "name": "retweet",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 1213.5,
+        "y": 321,
+        "wires": []
+    },
+    {
+        "id": "4bc6902a.afa75",
+        "type": "function",
+        "z": "d48c062b.f799e",
+        "name": "Retweet",
+        "func": "var topic = msg.topic.replace(\"tweets/\",\"@\");\nmsg.payload = \" RT: \" + topic + \"-\" + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1096.5,
+        "y": 345,
+        "wires": [
+            [
+                "d9d000e7.572238",
+                "ac7b6eac.ff7f08"
+            ]
+        ]
+    },
+    {
+        "id": "b273a1ff.987d3",
+        "type": "switch",
+        "z": "d48c062b.f799e",
+        "name": "Sentiment Positive",
+        "property": "sentiment.score",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "gte",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 1115.5,
+        "y": 171,
+        "wires": [
+            [
+                "f41cc09e.5b1348"
+            ],
+            [
+                "99982551.85dfa",
+                "b436c8ff.972188"
+            ]
+        ]
+    },
+    {
+        "id": "99982551.85dfa",
+        "type": "debug",
+        "z": "d48c062b.f799e",
+        "name": "positive",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 1310.5,
+        "y": 275,
+        "wires": []
+    },
+    {
+        "id": "f41cc09e.5b1348",
+        "type": "debug",
+        "z": "d48c062b.f799e",
+        "name": "negative",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 1296.5,
+        "y": 99,
+        "wires": []
+    },
+    {
+        "id": "d9d000e7.572238",
+        "type": "delay",
+        "z": "d48c062b.f799e",
+        "name": "6 per hour",
+        "pauseType": "rate",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "6",
+        "nbRateUnits": "1",
+        "rateUnits": "hour",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 1146.5,
+        "y": 400,
+        "wires": [
+            [
+                "ec12bfc.ba35f4"
+            ]
+        ]
+    },
+    {
+        "id": "ec12bfc.ba35f4",
+        "type": "twitter out",
+        "z": "d48c062b.f799e",
+        "twitter": "c79edaca.cc8178",
+        "name": "Tweet",
+        "x": 1207.5,
+        "y": 483,
+        "wires": []
+    },
+    {
+        "id": "71aeb80c.d714e8",
+        "type": "inject",
+        "z": "d48c062b.f799e",
+        "name": "Every 30 minutes",
+        "topic": "every30minutes",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1800",
+        "crontab": "",
+        "once": true,
+        "x": 182.5,
+        "y": 354,
+        "wires": [
+            [
+                "ddc6c1b0.4ec56"
+            ]
+        ]
+    },
+    {
+        "id": "ddc6c1b0.4ec56",
+        "type": "twitter in",
+        "z": "d48c062b.f799e",
+        "twitter": "c79edaca.cc8178",
+        "tags": "bluemix",
+        "user": "false",
+        "name": "Bluemix Retweet",
+        "topic": "tweets",
+        "inputs": 1,
+        "x": 312.5,
+        "y": 240,
+        "wires": [
+            [
+                "a696042c.91eec"
+            ]
+        ]
+    },
+    {
+        "id": "6e84676e.112558",
+        "type": "switch",
+        "z": "d48c062b.f799e",
+        "name": "bots_topic",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "bmxstatus_bot",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SamWeeksIBMbot",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 3,
+        "x": 927.5,
+        "y": 313,
+        "wires": [
+            [],
+            [],
+            [
+                "4bc6902a.afa75"
+            ]
+        ]
+    },
+    {
+        "id": "b436c8ff.972188",
+        "type": "switch",
+        "z": "d48c062b.f799e",
+        "name": "bots_payload",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "bmxstatus_bot",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SamWeeksIBMbot",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 3,
+        "x": 1015.5,
+        "y": 237,
+        "wires": [
+            [],
+            [],
+            [
+                "6e84676e.112558"
+            ]
+        ]
+    }
+]
