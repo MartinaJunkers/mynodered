@@ -1,9 +1,9 @@
 applications:
 - path: .
   memory: 512M
-  instances: 1
+  instances: 2
   domain: mybluemix.net
-  name: Retweet Bluemix
+  name: Retweet_Bluemix
   host: Retweet-Bluemix
   disk_quota: 1024M
   services:
