@@ -1,4 +1,4 @@
-ROM registry.ng.bluemix.net/ibmnode:latest
+FROM registry.ng.bluemix.net/ibmnode:latest
 COPY ./ Retweet+Bluemix
 WORKDIR Retweet+Bluemix
 RUN npm install -d --production
