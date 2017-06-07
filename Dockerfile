@@ -1,5 +1,5 @@
 FROM registry.ng.bluemix.net/ibmnode:latest
-COPY ./ martinanodered
+COPY ./martinanodered
 WORKDIR registry.ng.bluemix.net/martina/martinanodered
 RUN npm install -d --production
 EXPOSE 80
