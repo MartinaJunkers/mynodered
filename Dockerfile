@@ -1,6 +1,6 @@
 FROM registry.ng.bluemix.net/ibmnode:latest
-COPY ./ Retweet+Bluemix
-WORKDIR Retweet+Bluemix
+COPY ./ martinanodered
+WORKDIR registry.ng.bluemix.net/martina/martinanodered
 RUN npm install -d --production
 EXPOSE 80
 ENV PORT 80
