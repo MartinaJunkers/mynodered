@@ -6,5 +6,4 @@ applications:
   name: Retweet-Bluemix-Martina
   host: Retweet-Bluemix-Martina-Bluemix
   disk_quota: 1024M
-  services:
-  - Retweet Bluemix-cloudantNoSQLDB
+  
