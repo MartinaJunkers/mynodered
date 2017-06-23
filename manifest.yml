@@ -3,8 +3,8 @@ applications:
   memory: 512M
   instances: 1
   domain: mybluemix.net
-  name: Retweet Bluemix
-  host: Retweet-Bluemix
+  name: Retweet-Bluemix-Martina
+  host: Retweet-Bluemix-Martina
   disk_quota: 1024M
   services:
   - Retweet Bluemix-cloudantNoSQLDB
