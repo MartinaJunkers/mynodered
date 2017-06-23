@@ -1,0 +1,483 @@
+[
+    {
+        "id": "92330033.75a5c8",
+        "type": "tab",
+        "label": "bluemix_tweet_openwhisk"
+    },
+    {
+        "id": "6404f146.e4805",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MartinaJnkrs"
+    },
+    {
+        "id": "d2f1cb6b.3a09",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MartinaJnkrs"
+    },
+    {
+        "id": "cea42b83.c64a2",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MartinaJnkrs"
+    },
+    {
+        "id": "700950e6.243d38",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": ""
+    },
+    {
+        "id": "e4663d77.d2736",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@Junkers_IBM"
+    },
+    {
+        "id": "294449a8.2235b6",
+        "type": "openwhisk-service",
+        "z": "",
+        "name": "MartinasSpace",
+        "api": "https://openwhisk.ng.bluemix.net/api/v1"
+    },
+    {
+        "id": "8ce6c5dc.60e6e",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MartinaJnkrs"
+    },
+    {
+        "id": "e3bf1aee.4395f",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MartinaJnkrs"
+    },
+    {
+        "id": "61ac1be9.f2ecbc",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MartinaJnkrs"
+    },
+    {
+        "id": "37e22ad.5c18856",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": ""
+    },
+    {
+        "id": "9b24b84f.a82388",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": ""
+    },
+    {
+        "id": "11c79af.c1370e5",
+        "type": "openwhisk-service",
+        "z": "",
+        "name": "MartinasSpace",
+        "api": "https://openwhisk.ng.bluemix.net"
+    },
+    {
+        "id": "3cef9e5a.816dda",
+        "type": "openwhisk-service",
+        "z": "",
+        "name": "",
+        "api": "https://openwhisk.ng.bluemix.net/api/v1//martina.junkers1@ie.ibm.com_MartinasSpace/Slack-Retweet/post"
+    },
+    {
+        "id": "f2b124a0.9e0f9",
+        "type": "openwhisk-service",
+        "z": "",
+        "name": "MartinasSpace",
+        "api": "https://openwhisk.ng.bluemix.net/api/v1"
+    },
+    {
+        "id": "4843634a.9d4974",
+        "type": "twitter-credentials",
+        "z": "",
+        "screen_name": "@MartinaJnkrs"
+    },
+    {
+        "id": "945da357.741b38",
+        "type": "switch",
+        "z": "92330033.75a5c8",
+        "name": "English",
+        "property": "lang",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "en",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 398.5,
+        "y": 164,
+        "wires": [
+            [
+                "f1b82692.7d78f8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f1b82692.7d78f8",
+        "type": "switch",
+        "z": "92330033.75a5c8",
+        "name": "Bad Language Filter",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "fuck",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "shit",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "crap",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "arsehole",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "shite",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 6,
+        "x": 653.5,
+        "y": 157,
+        "wires": [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [
+                "90898403.d43ba8"
+            ]
+        ]
+    },
+    {
+        "id": "90898403.d43ba8",
+        "type": "sentiment",
+        "z": "92330033.75a5c8",
+        "name": "positive sentiment",
+        "x": 1028.5,
+        "y": 81,
+        "wires": [
+            [
+                "af7317d2.f72c6"
+            ]
+        ]
+    },
+    {
+        "id": "59665486.259134",
+        "type": "debug",
+        "z": "92330033.75a5c8",
+        "name": "retweet",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 1383.5001220703125,
+        "y": 341,
+        "wires": []
+    },
+    {
+        "id": "c90d3b77.75243",
+        "type": "function",
+        "z": "92330033.75a5c8",
+        "name": "Retweet",
+        "func": "var topic = msg.topic.replace(\"tweets/\",\"@\");\nmsg.payload = \" RT: \" + topic + \"-\" + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1096.5,
+        "y": 345,
+        "wires": [
+            [
+                "7c395493.432cd4",
+                "59665486.259134"
+            ]
+        ]
+    },
+    {
+        "id": "af7317d2.f72c6",
+        "type": "switch",
+        "z": "92330033.75a5c8",
+        "name": "Sentiment Positive",
+        "property": "sentiment.score",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "gte",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 1115.5,
+        "y": 171,
+        "wires": [
+            [],
+            [
+                "904111fa.bea0a",
+                "e0477894.b6077",
+                "e57bf8de.b8e32"
+            ]
+        ]
+    },
+    {
+        "id": "904111fa.bea0a",
+        "type": "debug",
+        "z": "92330033.75a5c8",
+        "name": "positive",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 1310.5,
+        "y": 275,
+        "wires": []
+    },
+    {
+        "id": "f7bac3ff.e43c1",
+        "type": "debug",
+        "z": "92330033.75a5c8",
+        "name": "negative",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 1731.4998779296875,
+        "y": 225.25001525878906,
+        "wires": []
+    },
+    {
+        "id": "7c395493.432cd4",
+        "type": "delay",
+        "z": "92330033.75a5c8",
+        "name": "6 per hour",
+        "pauseType": "rate",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "6",
+        "nbRateUnits": "1",
+        "rateUnits": "hour",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 1146.5,
+        "y": 400,
+        "wires": [
+            [
+                "86af30a8.ca57a"
+            ]
+        ]
+    },
+    {
+        "id": "86af30a8.ca57a",
+        "type": "twitter out",
+        "z": "92330033.75a5c8",
+        "twitter": "4843634a.9d4974",
+        "name": "Tweet",
+        "x": 1298.9285888671875,
+        "y": 527.2858276367188,
+        "wires": []
+    },
+    {
+        "id": "b71545bc.665dc8",
+        "type": "inject",
+        "z": "92330033.75a5c8",
+        "name": "Every 30 minutes",
+        "topic": "every30minutes",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1800",
+        "crontab": "",
+        "once": true,
+        "x": 182.5,
+        "y": 354,
+        "wires": [
+            [
+                "87c332d2.b92268"
+            ]
+        ]
+    },
+    {
+        "id": "87c332d2.b92268",
+        "type": "twitter in",
+        "z": "92330033.75a5c8",
+        "twitter": "4843634a.9d4974",
+        "tags": "bluemix, #IBMWatson",
+        "user": "false",
+        "name": "Bluemix Retweet",
+        "topic": "tweets",
+        "inputs": 1,
+        "x": 312.5,
+        "y": 240,
+        "wires": [
+            [
+                "945da357.741b38"
+            ]
+        ]
+    },
+    {
+        "id": "ecd136fc.3dc2c8",
+        "type": "switch",
+        "z": "92330033.75a5c8",
+        "name": "bots_topic",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "bmxstatus_bot",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SamWeeksIBMbot",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 3,
+        "x": 927.5,
+        "y": 313,
+        "wires": [
+            [],
+            [],
+            [
+                "c90d3b77.75243"
+            ]
+        ]
+    },
+    {
+        "id": "e0477894.b6077",
+        "type": "switch",
+        "z": "92330033.75a5c8",
+        "name": "bots_payload",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "bmxstatus_bot",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SamWeeksIBMbot",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 3,
+        "x": 1015.5,
+        "y": 237,
+        "wires": [
+            [],
+            [],
+            [
+                "ecd136fc.3dc2c8"
+            ]
+        ]
+    },
+    {
+        "id": "7b11cec6.fdff1",
+        "type": "openwhisk-action",
+        "z": "92330033.75a5c8",
+        "name": "slack",
+        "func": "",
+        "namespace": "martina.junkers1@ie.ibm.com_MartinasSpace",
+        "action": "slack",
+        "params": [
+            {
+                "disabled": true
+            }
+        ],
+        "service": "f2b124a0.9e0f9",
+        "edit": false,
+        "x": 1595,
+        "y": 131.07150268554688,
+        "wires": [
+            [
+                "f7bac3ff.e43c1"
+            ]
+        ]
+    },
+    {
+        "id": "455571f4.df7ec",
+        "type": "debug",
+        "z": "92330033.75a5c8",
+        "name": "kristweet",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 1477.8571428571427,
+        "y": 467.85714285714283,
+        "wires": []
+    },
+    {
+        "id": "e57bf8de.b8e32",
+        "type": "function",
+        "z": "92330033.75a5c8",
+        "name": "tweet back",
+        "func": "var topic = msg.topic\nvar payload = msg.payload\nmsg.payload = topic + payload\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1433.5714111328125,
+        "y": 206.78570556640625,
+        "wires": [
+            [
+                "455571f4.df7ec",
+                "7b11cec6.fdff1"
+            ]
+        ]
+    },
+    {
+        "id": "ab87f99f.175fe8",
+        "type": "function",
+        "z": "92330033.75a5c8",
+        "name": "text",
+        "func": "var text = msg.payload\nreturn text;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1563.571533203125,
+        "y": 296.78564453125,
+        "wires": [
+            []
+        ]
+    }
+]
