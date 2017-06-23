@@ -28,5 +28,14 @@
   "main": "bluemix-settings.js",
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartinaJunkers/mynodered.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MartinaJunkers/mynodered/issues"
+  },
+  "homepage": "https://github.com/MartinaJunkers/mynodered#readme"
 }
